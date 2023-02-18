@@ -1,8 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import videosDataSlice from "./../features/videos/videosSlice";
+import { addNoteReducer } from "./../features/add_note/addNoteSlice";
+import { jumpVideoReducer } from "./../features/jump_video/jumpVideoSlice";
+// configure store
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    videosData: videosDataSlice,
+    addNoteData: addNoteReducer,
+    jumpVideoData: jumpVideoReducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(logger);
   },
 });
+
+export default store;
